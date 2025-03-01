@@ -1,5 +1,5 @@
 name = "my-mercadopago-worker"
-main = "src/getPaymentDetails.js"  # O "src/index.js" si prefieres un archivo principal
+main = "src/webhookTest.js"  # O "src/index.js" si prefieres un archivo principal
 compatibility_date = "2023-03-28"
 
 # Ajusta según tu cuenta
