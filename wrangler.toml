@@ -9,7 +9,8 @@ workers_dev = true
 # Si tienes rutas personalizadas
 # [[routes]]
 # pattern = "https://macrofyai.com/*"
-
+[observability.logs]
+enabled = false
 
 [vars]
 # Estas variables NO contendrán tus secretos sensibles, sino otras variables si lo deseas
