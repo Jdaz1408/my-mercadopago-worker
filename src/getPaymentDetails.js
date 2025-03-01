@@ -18,7 +18,7 @@ export default {
     }
 
     // Extraer data.id desde payload (p. ej. { query: { "data.id": "xxxx" } })
-    const dataId = payload?.query?.["data.id"] || payload?.body?.data?.id;
+    const dataId = payload?.query?.["data.id"] || payload?.body?.data?.id || payload?.data?.id || payload?.id;
     if (!dataId) {
       return new Response(JSON.stringify({ error: "Payment ID not provided" }), {
         status: 400,
