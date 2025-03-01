@@ -13,7 +13,7 @@ export default {
     let payload;
     try {
       payload = await request.json();
-      console.log("[getPaymentDetails] Payload received:", JSON.stringify(payload));
+      console.log("[getPaymentDetails] Payload received:", JSON.stringify(payload, null, 2));
     } catch (err) {
       console.error("[getPaymentDetails] Error parsing JSON:", err);
       return new Response(JSON.stringify({ error: "Invalid JSON", details: err.toString() }), {
@@ -22,7 +22,7 @@ export default {
       });
     }
 
-    // Extraer Payment ID de distintas ubicaciones
+    // Extraer Payment ID de múltiples ubicaciones
     const dataId =
       payload?.query?.["data.id"] ||
       payload?.body?.data?.id ||
@@ -38,7 +38,7 @@ export default {
       });
     }
 
-    // Imprimir el token (solo para debug)
+    // Imprimir el token para depuración (solo para testing, recuerda eliminarlo en producción)
     console.log("[getPaymentDetails] MP_ACCESS_TOKEN from env:", env.MP_ACCESS_TOKEN);
 
     try {
@@ -48,7 +48,8 @@ export default {
         headers: {
           "Authorization": `Bearer ${env.MP_ACCESS_TOKEN}`,
           "Accept": "application/json",
-          "User-Agent": "Mozilla/5.0 (compatible; Cloudflare Worker; +https://workers.cloudflare.com)"
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
+          // Puedes agregar "Origin": "https://mercadopago.com" si es necesario
         },
       });
 
@@ -64,7 +65,7 @@ export default {
       }
 
       const paymentData = await mpResponse.json();
-      console.log("[getPaymentDetails] Payment data received:", JSON.stringify(paymentData));
+      console.log("[getPaymentDetails] Payment data received:", JSON.stringify(paymentData, null, 2));
       return new Response(JSON.stringify({ success: true, paymentData }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
