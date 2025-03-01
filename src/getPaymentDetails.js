@@ -22,9 +22,14 @@ export default {
       });
     }
 
-    // Extraer Payment ID de distintas ubicaciones del payload
-    const dataId = payload?.query?.["data.id"] || payload?.body?.data?.id || payload?.data?.id || payload?.id;
+    // Extraer Payment ID de distintas ubicaciones
+    const dataId =
+      payload?.query?.["data.id"] ||
+      payload?.body?.data?.id ||
+      payload?.data?.id ||
+      payload?.id;
     console.log("[getPaymentDetails] Extracted Payment ID:", dataId);
+
     if (!dataId) {
       console.error("[getPaymentDetails] Payment ID not provided.");
       return new Response(JSON.stringify({ error: "Payment ID not provided" }), {
@@ -33,21 +38,22 @@ export default {
       });
     }
 
-    // Imprimir el token para depuración (ojo: solo para testing)
+    // Imprimir el token (solo para debug)
     console.log("[getPaymentDetails] MP_ACCESS_TOKEN from env:", env.MP_ACCESS_TOKEN);
 
-    // Llamar a la API de Mercado Pago usando el secret MP_ACCESS_TOKEN desde env
     try {
       console.log("[getPaymentDetails] Calling Mercado Pago API for Payment ID:", dataId);
       const mpResponse = await fetch(`https://api.mercadopago.com/v1/payments/${dataId}`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${env.MP_ACCESS_TOKEN}`,
+          "Accept": "application/json",
+          "User-Agent": "Mozilla/5.0 (compatible; Cloudflare Worker; +https://workers.cloudflare.com)"
         },
       });
 
       console.log("[getPaymentDetails] Mercado Pago API response status:", mpResponse.status);
-
+      
       if (!mpResponse.ok) {
         const errText = await mpResponse.text();
         console.error("[getPaymentDetails] Error fetching payment details:", errText);
