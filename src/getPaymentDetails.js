@@ -1,5 +1,3 @@
-import { MP_ACCESS_TOKEN } from './processPayment.js';  // Importamos una variable o la traemos desde secrets
-
 export default {
   async fetch(request, env, ctx) {
     if (request.method !== "POST") {
@@ -28,12 +26,12 @@ export default {
       });
     }
 
-    // Llamar a la API de Mercado Pago
+    // Llamar a la API de Mercado Pago usando la variable de entorno MP_ACCESS_TOKEN
     try {
       const mpResponse = await fetch(`https://api.mercadopago.com/v1/payments/${dataId}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${env.MP_ACCESS_TOKEN}`, // Se usará la variable secreta
+          Authorization: `Bearer ${env.MP_ACCESS_TOKEN}`,
         },
       });
 
