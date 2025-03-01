@@ -33,6 +33,9 @@ export default {
       });
     }
 
+    // Imprimir el token para depuración (ojo: solo para testing)
+    console.log("[getPaymentDetails] MP_ACCESS_TOKEN from env:", env.MP_ACCESS_TOKEN);
+
     // Llamar a la API de Mercado Pago usando el secret MP_ACCESS_TOKEN desde env
     try {
       console.log("[getPaymentDetails] Calling Mercado Pago API for Payment ID:", dataId);
