@@ -1,0 +1,17 @@
+name = "my-mercadopago-worker"
+main = "src/getPaymentDetails.js"  # O "src/index.js" si prefieres un archivo principal
+compatibility_date = "2023-03-28"
+
+# Ajusta según tu cuenta
+account_id = "7f6f1c924fefe595c6a29bfc4325bdf4"
+workers_dev = true
+
+# Si tienes rutas personalizadas
+# [[routes]]
+# pattern = "https://macrofyai.com/*"
+
+
+[vars]
+# Estas variables NO contendrán tus secretos sensibles, sino otras variables si lo deseas
+# Por ejemplo:
+# ENVIRONMENT = "production"
